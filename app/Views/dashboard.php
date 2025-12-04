@@ -64,7 +64,8 @@
                         <!-- Language Switcher -->
                         <div class="flex items-center space-x-2">
                             <span class="text-blue-100 text-sm font-medium"><?= lang('Dashboard.language') ?>:</span>
-                            <select id="language-switcher" class="bg-white/20 backdrop-blur-sm border border-white/30 rounded-lg px-3 py-2 text-white text-sm focus:ring-2 focus:ring-blue-300 focus:border-blue-300">
+                            <select id="language-switcher" class="bg-black/40 backdrop-blur-sm border border-white/30 rounded-lg px-3 py-2 text-white text-sm focus:ring-2 focus:ring-blue-300 focus:border-blue-300">
+
                                 <option value="id" <?= service('request')->getLocale() === 'id' ? 'selected' : '' ?>>
                                     <?= lang('Dashboard.indonesian') ?>
                                 </option>
@@ -173,7 +174,7 @@
                                                     <?php echo number_format($upload['usd_value'] ?? 0, 2, ',', '.'); ?>
                                                 </td>
                                                 <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                    <?php echo date('d/m/Y H:i', strtotime($upload['created_at'] ?? 'now')); ?>
+                                                    <?php echo date('d/m/Y H:i', strtotime($upload['created_at'] ?? 'upload_date')); ?>
                                                 </td>
                                                 <td class="px-4 py-4 whitespace-nowrap text-sm font-medium">
                                                     <div class="flex space-x-2">
@@ -1982,6 +1983,16 @@
                 });
         });
     </script>
+
+    <footer class="bg-gray-800/80 backdrop-blur-lg border-t border-gray-700 shadow-inner mt-12">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-center items-center text-sm text-white/80">
+            &copy; <?= date('Y') ?> DPMPTSP-Tanah Bumbu
+        </div>
+    </footer>
+
+
+
+
 </body>
 
 </html>
