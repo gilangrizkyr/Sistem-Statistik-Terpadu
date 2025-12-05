@@ -49,4 +49,15 @@ class Filters extends BaseFilters
     ];
 
     public array $methods = [];
+
+    // public array $filters = [
+    //     'threatdetection' => [
+    //         'before' => [
+    //             'dashboard/upload',
+    //             'dashboard/processMetadata',
+    //             'dashboard/updateMetadata',
+    //             'dashboard/deleteUpload',
+    //         ]
+    //     ],
+    // ];
 }

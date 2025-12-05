@@ -1,0 +1,32 @@
+  .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .chart-container {
+            transition: all 0.3s ease;
+        }
+
+        .chart-container:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-transition {
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar-mobile {
+                transform: translateX(-100%);
+            }
+
+            .sidebar-mobile.open {
+                transform: translateX(0);
+            }
+        }

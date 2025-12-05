@@ -73,11 +73,11 @@
                         </li>
 
                         <?php if (session()->get('role') === 'superadmin'): ?>
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a class="nav-link" href="<?= base_url('user-management') ?>">
                                     <i class="bi bi-people"></i> Manajemen User
                                 </a>
-                            </li>
+                            </li> -->
                         <?php endif; ?>
 
                         <li class="nav-item dropdown">
@@ -99,16 +99,16 @@
                                     </small>
                                 </li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li>
+                                <!-- <li>
                                     <a class="dropdown-item" href="#">
                                         <i class="bi bi-gear"></i> Pengaturan
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="">
                                         <i class="bi bi-key"></i> Ubah Password
                                     </a>
-                                </li>
+                                </li> -->
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
                                     <a class="dropdown-item logout-btn" href="<?= base_url('auth/logout') ?>">
