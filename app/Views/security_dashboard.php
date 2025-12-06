@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Security Monitoring Center - CI4</title>
+    <title>Security Monitoring Center</title>
+    <link rel="icon" type="image/png" href="<?= base_url('logo-dpmptsp.png') ?>">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-       <link rel="stylesheet" href="<?= base_url('assets/css/security.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/css/security.css') ?>">
     <style>
-    
+
     </style>
 </head>
 

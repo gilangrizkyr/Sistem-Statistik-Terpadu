@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Input Metadata Upload - Sistem Statistik Terpadu</title>
+    <link rel="icon" type="image/png" href="<?= base_url('logo-dpmptsp.png') ?>">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -146,7 +147,7 @@
                 </div>
             </form>
 
-           <!-- Flash Messages - Enhanced untuk menampilkan HTML -->
+            <!-- Flash Messages - Enhanced untuk menampilkan HTML -->
             <?php if (session()->getFlashdata('success')): ?>
                 <div class="mt-6 glass-card shadow-xl rounded-xl p-4 border-l-4 border-green-500 animate-fade-in">
                     <div class="flex items-start">
@@ -175,48 +176,48 @@
                 </div>
             <?php endif; ?>
 
-    <script>
-        // Auto-format USD value input
-        document.getElementById('usd_value').addEventListener('input', function(e) {
-            let value = e.target.value;
-            // Remove any non-numeric characters except decimal point
-            value = value.replace(/[^0-9.]/g, '');
-            // Ensure only one decimal point
-            const parts = value.split('.');
-            if (parts.length > 2) {
-                value = parts[0] + '.' + parts.slice(1).join('');
-            }
-            e.target.value = value;
-        });
+            <script>
+                // Auto-format USD value input
+                document.getElementById('usd_value').addEventListener('input', function(e) {
+                    let value = e.target.value;
+                    // Remove any non-numeric characters except decimal point
+                    value = value.replace(/[^0-9.]/g, '');
+                    // Ensure only one decimal point
+                    const parts = value.split('.');
+                    if (parts.length > 2) {
+                        value = parts[0] + '.' + parts.slice(1).join('');
+                    }
+                    e.target.value = value;
+                });
 
-        // Form validation with duplicate warning
-        document.querySelector('form').addEventListener('submit', function(e) {
-            const uploadName = document.getElementById('upload_name').value.trim();
-            const quarter = document.getElementById('quarter').value;
-            const year = document.getElementById('year').value;
-            const usdValue = document.getElementById('usd_value').value;
+                // Form validation with duplicate warning
+                document.querySelector('form').addEventListener('submit', function(e) {
+                    const uploadName = document.getElementById('upload_name').value.trim();
+                    const quarter = document.getElementById('quarter').value;
+                    const year = document.getElementById('year').value;
+                    const usdValue = document.getElementById('usd_value').value;
 
-            if (!uploadName || !quarter || !year || !usdValue) {
-                e.preventDefault();
-                alert('❌ Semua field harus diisi!');
-                return false;
-            }
+                    if (!uploadName || !quarter || !year || !usdValue) {
+                        e.preventDefault();
+                        alert('❌ Semua field harus diisi!');
+                        return false;
+                    }
 
-            if (parseFloat(usdValue) <= 0) {
-                e.preventDefault();
-                alert('❌ Nilai USD harus lebih besar dari 0!');
-                return false;
-            }
+                    if (parseFloat(usdValue) <= 0) {
+                        e.preventDefault();
+                        alert('❌ Nilai USD harus lebih besar dari 0!');
+                        return false;
+                    }
 
-            // Show loading state
-            const submitBtn = document.querySelector('button[type="submit"]');
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Memproses...';
-            submitBtn.disabled = true;
-        });
+                    // Show loading state
+                    const submitBtn = document.querySelector('button[type="submit"]');
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Memproses...';
+                    submitBtn.disabled = true;
+                });
 
-        // Add animation for flash messages
-        const style = document.createElement('style');
-        style.textContent = `
+                // Add animation for flash messages
+                const style = document.createElement('style');
+                style.textContent = `
             @keyframes fadeIn {
                 from { opacity: 0; transform: translateY(-10px); }
                 to { opacity: 1; transform: translateY(0); }
@@ -225,8 +226,8 @@
                 animation: fadeIn 0.5s ease-out;
             }
         `;
-        document.head.appendChild(style);
-    </script>
+                document.head.appendChild(style);
+            </script>
 </body>
 
 </html>

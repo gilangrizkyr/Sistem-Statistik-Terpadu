@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - SST Application</title>
+    <title>Login - Sistem Statistik Terpadu</title>
+    <link rel="icon" type="image/png" href="<?= base_url('logo-dpmptsp.png') ?>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -102,13 +103,32 @@
             color: #999;
             font-size: 14px;
         }
+
+        .floating-logo {
+            animation: floating 3.5s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-6px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
     </style>
 </head>
 
 <body>
     <div class="login-container">
         <div class="logo-container">
-            <img src="<?= base_url('logo-dpmptsp.png') ?>" alt="Logo">
+            <!-- <img src="<?= base_url('logo-dpmptsp.png') ?>" alt="Logo"> -->
+            <img src="<?= base_url('logo-dpmptsp.png') ?>" class="floating-logo" alt="Logo">
             <h2>Sistem Statistik Terpadu</h2>
             <p>Sistem Informasi Terpadu untuk Analisis Investasi</p>
         </div>
@@ -151,15 +171,10 @@
 
             <button type="submit" class="btn btn-login">Login</button>
         </form>
-
-        <div class="divider">
-            Account<br>
-            Username: <strong>superadmin</strong><br>
-            Password: <strong>SuperAdmin@123</strong>
-        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>

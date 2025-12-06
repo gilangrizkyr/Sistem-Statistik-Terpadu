@@ -40,3 +40,7 @@ $routes->group('user-management', ['filter' => 'roleFilter:superadmin'], functio
     $routes->post('update/(:num)', 'UserManagement::update/$1');
     $routes->get('delete/(:num)', 'UserManagement::delete/$1');
 });
+
+// FAQ ROUTE
+$routes->get('/faq', 'Faq::index');
+$routes->get('/faq', 'Faq::index', ['filter' => 'roleFilter']);

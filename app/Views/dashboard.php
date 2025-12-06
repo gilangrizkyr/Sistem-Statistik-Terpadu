@@ -39,25 +39,33 @@
                             <!-- Navigation Actions -->
                             <div class="flex items-center space-x-3">
                                 <!-- Language Switcher -->
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-blue-100 text-sm font-medium">
+                                        <?= lang('Dashboard.language') ?>:
+                                    </span>
+                                    <select id="language-switcher"
+                                        class="px-5 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white font-semibold 
+                                 rounded-lg shadow-md hover:from-blue-500 hover:to-blue-700 hover:scale-105 
+                                     transform transition duration-300 focus:ring-2 focus:ring-blue-300 cursor-pointer">
+                                        <option class="bg-white text-black"
+                                            value="id" <?= service('request')->getLocale() === 'id' ? 'selected' : '' ?>>
+                                            <?= lang('Dashboard.indonesian') ?>
+                                        </option>
+                                        <option class="bg-white text-black"
+                                            value="en" <?= service('request')->getLocale() === 'en' ? 'selected' : '' ?>>
+                                            <?= lang('Dashboard.english') ?>
+                                        </option>
+                                    </select>
+                                </div>
+                                <button type="button"
+                                    onclick="window.location.href='<?= base_url('/faq') ?>'"
+                                    class="px-5 py-2 bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-semibold 
+                                             rounded-lg shadow-md hover:from-purple-600 hover:to-indigo-700 hover:scale-105 
+                                       transform transition duration-300">
+                                    <i class="fas fa-question-circle mr-2"></i>
+                                    FAQ
+                                </button>
                                 <?php if (session()->get('role') === 'superadmin'): ?>
-                                    <div class="flex items-center space-x-2">
-                                        <span class="text-blue-100 text-sm font-medium">
-                                            <?= lang('Dashboard.language') ?>:
-                                        </span>
-                                        <select id="language-switcher"
-                                            class="px-5 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white font-semibold 
-                                     rounded-lg shadow-md hover:from-blue-500 hover:to-blue-700 hover:scale-105 
-                                         transform transition duration-300 focus:ring-2 focus:ring-blue-300 cursor-pointer">
-                                            <option class="bg-white text-black"
-                                                value="id" <?= service('request')->getLocale() === 'id' ? 'selected' : '' ?>>
-                                                <?= lang('Dashboard.indonesian') ?>
-                                            </option>
-                                            <option class="bg-white text-black"
-                                                value="en" <?= service('request')->getLocale() === 'en' ? 'selected' : '' ?>>
-                                                <?= lang('Dashboard.english') ?>
-                                            </option>
-                                        </select>
-                                    </div>
 
                                     <!-- Security Check Button -->
 
@@ -79,6 +87,9 @@
                                         <i class="fas fa-users mr-2"></i>
                                         <?= lang('Dashboard.user_management') ?>
                                     </button>
+                                    <!-- FAQ Button -->
+
+
                                 <?php endif; ?>
                                 <!-- Logout Button -->
                                 <button type="button"
@@ -287,7 +298,7 @@
                             <input type="checkbox" id="show-country" checked class="toggle toggle-blue">
                         </label>
                         <label class="flex items-center justify-between chart-item">
-                            <span>Quarterly Additional Investment</span>
+                            <span>Quarterly Additional Investment <?= lang('') ?></span>
                             <input type="checkbox" id="show-quarterly-additional-investment" checked class="toggle toggle-yellow">
                         </label>
                     </div>
@@ -601,7 +612,7 @@
                 </div>
 
                 <!-- DOWNLOAD -->
-                <div class="glass-card shadow-xl rounded-xl p-6 chart-container">
+                <!-- <div class="glass-card shadow-xl rounded-xl p-6 chart-container">
                     <div class="flex items-center mb-4">
                         <i class="fas fa-download text-green-600 mr-3 text-xl"></i>
                         <h2 class="text-xl font-semibold text-gray-800"><?= lang('Dashboard.download_analysis_results') ?></h2>
@@ -610,7 +621,7 @@
                         class="inline-flex items-center bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold py-3 px-6 rounded-lg transition-all transform hover:scale-105 shadow-lg">
                         <i class="fas fa-file-excel mr-2"></i><?= lang('Dashboard.download_excel') ?>
                     </a>
-                </div>
+                </div> -->
 
 
 
@@ -649,9 +660,9 @@
         </script>
     <?php endif; ?>
 
-    <footer class="bg-gray-800/80 backdrop-blur-lg border-t border-gray-700 shadow-inner mt-12">
+    <footer class="bg-gray-800 border-t border-gray-700 shadow-inner mt-12">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-center items-center text-sm text-white/80">
-            &copy; <?= date('Y') ?> DPMPTSP-Tanah Bumbu
+            © <?= date('Y') ?> DPMPTSP - Kabupaten Tanah Bumbu
         </div>
     </footer>
 

@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reset Password - SST Application</title>
+    <link rel="icon" type="image/png" href="<?= base_url('logo-dpmptsp.png') ?>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -13,6 +15,7 @@
             align-items: center;
             justify-content: center;
         }
+
         .reset-container {
             background: white;
             border-radius: 10px;
@@ -21,25 +24,30 @@
             max-width: 400px;
             padding: 40px;
         }
+
         .logo-container {
             text-align: center;
             margin-bottom: 30px;
         }
+
         .logo-container img {
             max-width: 60px;
             height: auto;
             margin-bottom: 15px;
         }
+
         .form-control {
             border: 1px solid #ddd;
             padding: 12px;
             margin-bottom: 15px;
             border-radius: 5px;
         }
+
         .form-control:focus {
             border-color: #667eea;
             box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
         }
+
         .btn-submit {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -49,12 +57,14 @@
             font-weight: 600;
             width: 100%;
         }
+
         .alert {
             margin-bottom: 20px;
             border-radius: 5px;
         }
     </style>
 </head>
+
 <body>
     <div class="reset-container">
         <div class="logo-container">
@@ -70,7 +80,7 @@
 
         <form action="<?= base_url('auth/process-reset-password') ?>" method="POST">
             <?= csrf_field() ?>
-            
+
             <input type="hidden" name="token" value="<?= $token ?>">
 
             <div class="mb-3">
@@ -96,4 +106,5 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
