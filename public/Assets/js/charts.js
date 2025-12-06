@@ -1,4 +1,5 @@
-// Charts JavaScript - Chart management and rendering
+// Charts JavaScript - Complete Chart management and rendering
+// Version: 2.0 - All Charts Fully Functional
 
 class ChartsManager {
     constructor(data, currency, usdRate) {
@@ -26,7 +27,7 @@ class ChartsManager {
     init() {
         this.createAllCharts();
         this.initializeChartToggles();
-        this.initializeChartTypeChanges();
+        this.initializeAllChartTypeChanges();
     }
     
     formatRp(num) {
@@ -47,6 +48,8 @@ class ChartsManager {
         }
         return colors;
     }
+    
+    // ==================== CREATE ALL CHARTS ==================== //
     
     createAllCharts() {
         this.createPmaPmdnChart();
@@ -123,9 +126,7 @@ class ChartsManager {
                 plugins: {
                     tooltip: {
                         callbacks: {
-                            label: (ctx) => {
-                                return `${ctx.dataset.label} - ${ctx.label}: ${ctx.raw} proyek`;
-                            }
+                            label: (ctx) => `${ctx.dataset.label} - ${ctx.label}: ${ctx.raw} proyek`
                         }
                     }
                 },
@@ -150,9 +151,7 @@ class ChartsManager {
                 plugins: {
                     tooltip: {
                         callbacks: {
-                            label: (ctx) => {
-                                return this.currency === "USD" ? this.formatUSD(ctx.raw) : this.formatRp(ctx.raw);
-                            }
+                            label: (ctx) => this.currency === "USD" ? this.formatUSD(ctx.raw) : this.formatRp(ctx.raw)
                         }
                     }
                 },
@@ -270,12 +269,13 @@ class ChartsManager {
             }
         });
         
-        // Populate ranking list
         this.populateRankingList(rankingData);
     }
     
     populateRankingList(rankingData) {
         const rankingList = document.getElementById('ranking-list');
+        if (!rankingList) return;
+        
         rankingList.innerHTML = '';
         
         const medalColors = ['text-yellow-500', 'text-gray-400', 'text-amber-600', 'text-gray-500', 'text-gray-400'];
@@ -391,9 +391,7 @@ class ChartsManager {
                         plugins: {
                             tooltip: {
                                 callbacks: {
-                                    label: (ctx) => {
-                                        return this.currency === "USD" ? this.formatUSD(ctx.raw) : this.formatRp(ctx.raw);
-                                    }
+                                    label: (ctx) => this.currency === "USD" ? this.formatUSD(ctx.raw) : this.formatRp(ctx.raw)
                                 }
                             }
                         },
@@ -403,6 +401,8 @@ class ChartsManager {
             }
         }
     }
+    
+    // ==================== CHART TOGGLES ==================== //
     
     initializeChartToggles() {
         const chartCheckboxes = [
@@ -431,13 +431,20 @@ class ChartsManager {
         });
     }
     
-    initializeChartTypeChanges() {
-        // Initialize all chart type change event listeners
+    // ==================== CHART TYPE CHANGES ==================== //
+    
+    initializeAllChartTypeChanges() {
         this.initPmaPmdnTypeChange();
         this.initDistrictTypeChange();
         this.initInvestmentTypeChange();
         this.initSectorTypeChange();
-        // Add more as needed...
+        this.initWorkforcePmaTypeChange();
+        this.initWorkforcePmdnTypeChange();
+        this.initRankingDistrictTypeChange();
+        this.initProjectsPmaTypeChange();
+        this.initProjectsPmdnTypeChange();
+        this.initCountryTypeChange();
+        this.initQuarterlyTypeChange();
     }
     
     initPmaPmdnTypeChange() {
@@ -445,14 +452,12 @@ class ChartsManager {
         if (!typeSelect) return;
         
         typeSelect.addEventListener('change', (e) => {
-            if (this.charts.pmaPmdn) {
-                this.charts.pmaPmdn.destroy();
-            }
+            if (this.charts.pmaPmdn) this.charts.pmaPmdn.destroy();
             
             const totalProjectsPMA = parseInt(this.data.total_projects?.PMA ?? 0) || 0;
             const totalProjectsPMDN = parseInt(this.data.total_projects?.PMDN ?? 0) || 0;
-            
             const chartType = e.target.value === 'doughnut' ? 'doughnut' : e.target.value;
+            
             this.charts.pmaPmdn = new Chart(document.getElementById('pma-pmdn-chart'), {
                 type: chartType,
                 data: {
@@ -486,9 +491,7 @@ class ChartsManager {
         if (!typeSelect) return;
         
         typeSelect.addEventListener('change', (e) => {
-            if (this.charts.district) {
-                this.charts.district.destroy();
-            }
+            if (this.charts.district) this.charts.district.destroy();
             
             const chartType = e.target.value;
             const isHorizontal = chartType === 'horizontalBar';
@@ -524,9 +527,7 @@ class ChartsManager {
         if (!typeSelect) return;
         
         typeSelect.addEventListener('change', (e) => {
-            if (this.charts.location) {
-                this.charts.location.destroy();
-            }
+            if (this.charts.location) this.charts.location.destroy();
             
             const chartType = e.target.value;
             const loc = this.data.charts.locations;
@@ -546,9 +547,7 @@ class ChartsManager {
                     plugins: {
                         tooltip: {
                             callbacks: {
-                                label: (ctx) => {
-                                    return this.currency === "USD" ? this.formatUSD(ctx.raw) : this.formatRp(ctx.raw);
-                                }
+                                label: (ctx) => this.currency === "USD" ? this.formatUSD(ctx.raw) : this.formatRp(ctx.raw)
                             }
                         }
                     },
@@ -563,9 +562,7 @@ class ChartsManager {
         if (!typeSelect) return;
         
         typeSelect.addEventListener('change', (e) => {
-            if (this.charts.sector) {
-                this.charts.sector.destroy();
-            }
+            if (this.charts.sector) this.charts.sector.destroy();
             
             const chartType = e.target.value;
             const isHorizontal = chartType === 'horizontalBar';
@@ -595,6 +592,322 @@ class ChartsManager {
         });
     }
     
+    initWorkforcePmaTypeChange() {
+        const typeSelect = document.getElementById('workforce-pma-type');
+        if (!typeSelect) return;
+        
+        typeSelect.addEventListener('change', (e) => {
+            if (this.charts.workforcePma) this.charts.workforcePma.destroy();
+            
+            const chartType = e.target.value;
+            const workforceData = this.data.workforce_by_district || {};
+            const workforcePma = workforceData.PMA || {};
+            const pmaLabels = Object.keys(workforcePma);
+            const pmaTki = pmaLabels.map(l => workforcePma[l].TKI ?? 0);
+            const pmaTka = pmaLabels.map(l => workforcePma[l].TKA ?? 0);
+            
+            const isHorizontal = chartType === 'horizontalBar';
+            const isStacked = chartType === 'stacked';
+            const isPie = chartType === 'pie';
+            const actualType = (isHorizontal || isStacked) ? 'bar' : (isPie ? 'pie' : chartType);
+            
+            let config = {
+                type: actualType,
+                data: {
+                    labels: pmaLabels,
+                    datasets: isPie ? [{
+                        label: 'Workforce',
+                        data: pmaTki.map((tki, i) => tki + pmaTka[i]),
+                        backgroundColor: this.generateColors(pmaLabels.length)
+                    }] : [
+                        { label: 'TKI', data: pmaTki, backgroundColor: '#EF4444' },
+                        { label: 'TKA', data: pmaTka, backgroundColor: '#F97316' }
+                    ]
+                },
+                options: {
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: (ctx) => isPie ? `${ctx.label}: ${ctx.raw} orang` : `${ctx.dataset.label} - ${ctx.label}: ${ctx.raw} orang`
+                            }
+                        }
+                    },
+                    scales: !isPie ? { 
+                        y: { beginAtZero: true, stacked: isStacked }, 
+                        x: { stacked: isStacked } 
+                    } : {},
+                    indexAxis: isHorizontal ? 'y' : 'x'
+                }
+            };
+            
+            this.charts.workforcePma = new Chart(document.getElementById('workforce-pma-chart'), config);
+        });
+    }
+    
+    initWorkforcePmdnTypeChange() {
+        const typeSelect = document.getElementById('workforce-pmdn-type');
+        if (!typeSelect) return;
+        
+        typeSelect.addEventListener('change', (e) => {
+            if (this.charts.workforcePmdn) this.charts.workforcePmdn.destroy();
+            
+            const chartType = e.target.value;
+            const workforceData = this.data.workforce_by_district || {};
+            const workforcePmdn = workforceData.PMDN || {};
+            const pmdnLabels = Object.keys(workforcePmdn);
+            const pmdnTki = pmdnLabels.map(l => workforcePmdn[l].TKI ?? 0);
+            const pmdnTka = pmdnLabels.map(l => workforcePmdn[l].TKA ?? 0);
+            
+            const isHorizontal = chartType === 'horizontalBar';
+            const isStacked = chartType === 'stacked';
+            const isPie = chartType === 'pie';
+            const actualType = (isHorizontal || isStacked) ? 'bar' : (isPie ? 'pie' : chartType);
+            
+            let config = {
+                type: actualType,
+                data: {
+                    labels: pmdnLabels,
+                    datasets: isPie ? [{
+                        label: 'Workforce',
+                        data: pmdnTki.map((tki, i) => tki + pmdnTka[i]),
+                        backgroundColor: this.generateColors(pmdnLabels.length)
+                    }] : [
+                        { label: 'TKI', data: pmdnTki, backgroundColor: '#EF4444' },
+                        { label: 'TKA', data: pmdnTka, backgroundColor: '#F97316' }
+                    ]
+                },
+                options: {
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: (ctx) => isPie ? `${ctx.label}: ${ctx.raw} orang` : `${ctx.dataset.label} - ${ctx.label}: ${ctx.raw} orang`
+                            }
+                        }
+                    },
+                    scales: !isPie ? { 
+                        y: { beginAtZero: true, stacked: isStacked }, 
+                        x: { stacked: isStacked } 
+                    } : {},
+                    indexAxis: isHorizontal ? 'y' : 'x'
+                }
+            };
+            
+            this.charts.workforcePmdn = new Chart(document.getElementById('workforce-pmdn-chart'), config);
+        });
+    }
+    
+    initRankingDistrictTypeChange() {
+        const typeSelect = document.getElementById('ranking-district-type');
+        if (!typeSelect) return;
+        
+        typeSelect.addEventListener('change', (e) => {
+            if (this.charts.rankingDistrict) this.charts.rankingDistrict.destroy();
+            
+            const chartType = e.target.value;
+            const rankingData = this.data.ranking_by_district || [];
+            const rankingLabels = rankingData.map(item => item.district);
+            const rankingValues = rankingData.map(item => item.total_projects);
+            const isHorizontal = chartType === 'horizontalBar';
+            const isPie = chartType === 'pie';
+            
+            this.charts.rankingDistrict = new Chart(document.getElementById('ranking-district-chart'), {
+                type: isHorizontal ? 'bar' : chartType,
+                data: {
+                    labels: rankingLabels,
+                    datasets: [{
+                        label: 'Total Proyek',
+                        data: rankingValues,
+                        backgroundColor: isPie ? this.generateColors(rankingLabels.length) : '#F59E0B'
+                    }]
+                },
+                options: {
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: (ctx) => `${ctx.label}: ${ctx.raw} proyek`
+                            }
+                        }
+                    },
+                    scales: !isPie ? { y: { beginAtZero: true } } : {},
+                    indexAxis: isHorizontal ? 'y' : 'x'
+                }
+            });
+        });
+    }
+    
+    initProjectsPmaTypeChange() {
+        const typeSelect = document.getElementById('projects-pma-type');
+        if (!typeSelect) return;
+        
+        typeSelect.addEventListener('change', (e) => {
+            if (this.charts.projectsPma) this.charts.projectsPma.destroy();
+            
+            const chartType = e.target.value;
+            const dist = this.data.charts.district;
+            const isHorizontal = chartType === 'horizontalBar';
+            const isPie = chartType === 'pie';
+            
+            this.charts.projectsPma = new Chart(document.getElementById('projects-pma-chart'), {
+                type: (isHorizontal || chartType === 'horizontalLine') ? 'bar' : chartType,
+                data: {
+                    labels: dist.labels,
+                    datasets: [{
+                        label: 'PMA',
+                        data: dist.pma,
+                        backgroundColor: isPie ? this.generateColors(dist.labels.length) : '#3B82F6'
+                    }]
+                },
+                options: {
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: (ctx) => `PMA - ${ctx.label}: ${ctx.raw} proyek`
+                            }
+                        }
+                    },
+                    scales: !isPie ? { y: { beginAtZero: true } } : {},
+                    indexAxis: isHorizontal ? 'y' : 'x'
+                }
+            });
+        });
+    }
+    
+    initProjectsPmdnTypeChange() {
+        const typeSelect = document.getElementById('projects-pmdn-type');
+        if (!typeSelect) return;
+        
+        typeSelect.addEventListener('change', (e) => {
+            if (this.charts.projectsPmdn) this.charts.projectsPmdn.destroy();
+            
+            const chartType = e.target.value;
+            const dist = this.data.charts.district;
+            const isHorizontal = chartType === 'horizontalBar' || chartType === 'horizontalLine';
+            const isPie = chartType === 'pie';
+            
+            this.charts.projectsPmdn = new Chart(document.getElementById('projects-pmdn-chart'), {
+                type: isHorizontal ? 'bar' : chartType,
+                data: {
+                    labels: dist.labels,
+                    datasets: [{
+                        label: 'PMDN',
+                        data: dist.pmdn,
+                        backgroundColor: isPie ? this.generateColors(dist.labels.length) : '#F59E0B'
+                    }]
+                },
+                options: {
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: (ctx) => `PMDN - ${ctx.label}: ${ctx.raw} proyek`
+                            }
+                        }
+                    },
+                    scales: !isPie ? { y: { beginAtZero: true } } : {},
+                    indexAxis: isHorizontal ? 'y' : 'x'
+                }
+            });
+        });
+    }
+    
+    initCountryTypeChange() {
+        const typeSelect = document.getElementById('country-type');
+        if (!typeSelect) return;
+        
+        typeSelect.addEventListener('change', (e) => {
+            if (this.charts.country) this.charts.country.destroy();
+            
+            const chartType = e.target.value;
+            const countryData = this.data.charts.countries;
+            const isHorizontal = chartType === 'horizontalBar';
+            const isPieOrDoughnut = chartType === 'pie' || chartType === 'doughnut';
+            
+            this.charts.country = new Chart(document.getElementById('country-chart'), {
+                type: isHorizontal ? 'bar' : chartType,
+                data: {
+                    labels: countryData.labels,
+                    datasets: [{
+                        label: 'Jumlah Proyek',
+                        data: countryData.counts,
+                        backgroundColor: isPieOrDoughnut ? this.generateColors(countryData.labels.length) : '#10B981'
+                    }]
+                },
+                options: {
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: (ctx) => `${ctx.label}: ${ctx.raw} proyek`
+                            }
+                        }
+                    },
+                    scales: !isPieOrDoughnut ? { y: { beginAtZero: true } } : {},
+                    indexAxis: isHorizontal ? 'y' : 'x'
+                }
+            });
+        });
+    }
+    
+    initQuarterlyTypeChange() {
+        const typeSelect = document.getElementById('quarterly-additional-investment-type');
+        const yearSelect = document.getElementById('quarterly-additional-investment-year');
+        
+        if (!typeSelect || !yearSelect) return;
+        
+        const updateQuarterlyChart = () => {
+            if (this.charts.quarterlyAdditionalInvestment) {
+                this.charts.quarterlyAdditionalInvestment.destroy();
+            }
+            
+            const chartType = typeSelect.value;
+            const selectedYear = yearSelect.value;
+            
+            console.log('Updating quarterly chart - Year:', selectedYear, 'Type:', chartType);
+            
+            // Get data for selected year
+            let quarterlyData;
+            if (selectedYear === 'all') {
+                quarterlyData = this.data.charts.quarterly_additional_investment;
+            } else {
+                const allQuarterlyData = this.data.charts.quarterly_additional_investment_all_years || {};
+                quarterlyData = allQuarterlyData[selectedYear] || {
+                    labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                    values: [0, 0, 0, 0]
+                };
+            }
+            
+            console.log('Quarterly data:', quarterlyData);
+            
+            const isPie = chartType === 'pie';
+            
+            this.charts.quarterlyAdditionalInvestment = new Chart(
+                document.getElementById('quarterly-additional-investment-chart'), 
+                {
+                    type: chartType === 'area' ? 'line' : chartType,
+                    data: {
+                        labels: quarterlyData.labels,
+                        datasets: [{
+                            label: 'Additional Investment',
+                            data: quarterlyData.values,
+                            backgroundColor: isPie ? this.generateColors(4) : '#6366F1',
+                            fill: chartType === 'area'
+                        }]
+                    },
+                    options: {
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    label: (ctx) => this.currency === "USD" ? this.formatUSD(ctx.raw) : this.formatRp(ctx.raw)
+                                }
+                            }
+                        },
+                        scales: !isPie ? { y: { beginAtZero: true } } : {}
+                    }
+                }
+            );
+        };
+        
+        typeSelect.addEventListener('change', updateQuarterlyChart);
+        yearSelect.addEventListener('change', updateQuarterlyChart);
+    }
 }
 
 // Initialize charts when DOM is ready
@@ -604,4 +917,19 @@ document.addEventListener('DOMContentLoaded', function() {
         const usdRate = data.usd_rate ?? 15000;
         window.chartsManager = new ChartsManager(data, currency, usdRate);
     }
+});
+
+const searchInput = document.getElementById('search-charts');
+const chartItems = document.querySelectorAll('.chart-item');
+
+searchInput.addEventListener('input', () => {
+    const query = searchInput.value.toLowerCase();
+    chartItems.forEach(item => {
+        const label = item.querySelector('span').textContent.toLowerCase();
+        if(label.includes(query)) {
+            item.style.display = 'flex';
+        } else {
+            item.style.display = 'none';
+        }
+    });
 });

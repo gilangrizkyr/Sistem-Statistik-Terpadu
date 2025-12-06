@@ -8,6 +8,8 @@ return [
     'language' => 'Language',
     'indonesian' => 'Indonesian',
     'english' => 'English',
+    'all_years' => 'All Years',
+    'year' => 'Year',
 
     // Upload Section
     'upload_file_excel' => 'Upload Excel File',

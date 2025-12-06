@@ -21,8 +21,6 @@
         <!-- Content -->
         <div class="p-4 md:p-6">
             <div class="container mx-auto max-w-7xl">
-
-                <!-- Navbar -->
                 <!-- Navbar -->
                 <nav class="bg-gradient-to-r from-blue-800 to-blue-900 shadow-lg mb-8">
                     <div class="container mx-auto px-6 py-4">
@@ -237,56 +235,61 @@
                     </div>
 
                     <!-- Chart Options -->
-                    <div class="glass-card shadow-xl rounded-xl p-6 chart-container lg:col-span-1">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
-                            <i class="fas fa-chart-bar mr-2 text-green-600"></i><?= lang('Dashboard.chart_options') ?>
-                        </h3>
-                        <div class="grid grid-cols-1 gap-3">
-                            <label class="flex items-center">
-                                <input type="checkbox" id="show-pma-pmdn" checked class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-                                <span class="ml-2 text-sm text-gray-700"><?= lang('Dashboard.pma_vs_pmdn') ?></span>
-                            </label>
-                            <label class="flex items-center">
-                                <input type="checkbox" id="show-district" checked class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-                                <span class="ml-2 text-sm text-gray-700"><?= lang('Dashboard.projects_by_district') ?></span>
-                            </label>
-                            <label class="flex items-center">
-                                <input type="checkbox" id="show-investment" checked class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-                                <span class="ml-2 text-sm text-gray-700"><?= lang('Dashboard.investment_by_location') ?></span>
-                            </label>
-                            <label class="flex items-center">
-                                <input type="checkbox" id="show-sector" checked class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-                                <span class="ml-2 text-sm text-gray-700"><?= lang('Dashboard.projects_by_sector') ?></span>
-                            </label>
-                            <label class="flex items-center">
-                                <input type="checkbox" id="show-workforce-pma" checked class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-                                <span class="ml-2 text-sm text-gray-700"><?= lang('Dashboard.workforce_pma') ?></span>
-                            </label>
-                            <label class="flex items-center">
-                                <input type="checkbox" id="show-workforce-pmdn" checked class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-                                <span class="ml-2 text-sm text-gray-700"><?= lang('Dashboard.workforce_pmdn') ?></span>
-                            </label>
-                            <label class="flex items-center">
-                                <input type="checkbox" id="show-ranking-district" checked class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-                                <span class="ml-2 text-sm text-gray-700"><?= lang('Dashboard.ranking_projects_district') ?></span>
-                            </label>
-                            <label class="flex items-center">
-                                <input type="checkbox" id="show-projects-pma" checked class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-                                <span class="ml-2 text-sm text-gray-700"><?= lang('Dashboard.projects_pma_district') ?></span>
-                            </label>
-                            <label class="flex items-center">
-                                <input type="checkbox" id="show-projects-pmdn" checked class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-                                <span class="ml-2 text-sm text-gray-700"><?= lang('Dashboard.projects_pmdn_district') ?></span>
-                            </label>
-                            <label class="flex items-center">
-                                <input type="checkbox" id="show-country" checked class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-                                <span class="ml-2 text-sm text-gray-700"><?= lang('Dashboard.projects_by_country') ?></span>
-                            </label>
-                            <label class="flex items-center">
-                                <input type="checkbox" id="show-quarterly-additional-investment" checked class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-                                <span class="ml-2 text-sm text-gray-700">Quarterly Additional Investment</span>
-                            </label>
-                        </div>
+                </div>
+                <div class="glass-card shadow-xl rounded-xl p-6 mb-12 chart-container lg:col-span-1">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-chart-bar mr-2 text-green-600"></i><?= lang('Dashboard.chart_options') ?>
+                    </h3>
+
+                    <!-- Search input -->
+                    <input type="text" id="search-charts" placeholder="Search charts..." class="w-full mb-4 px-3 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400">
+
+                    <!-- Checkbox list -->
+                    <div class="space-y-3" id="chart-list">
+                        <label class="flex items-center justify-between chart-item">
+                            <span><?= lang('Dashboard.pma_vs_pmdn') ?></span>
+                            <input type="checkbox" id="show-pma-pmdn" checked class="toggle toggle-blue">
+                        </label>
+                        <label class="flex items-center justify-between chart-item">
+                            <span><?= lang('Dashboard.projects_by_district') ?></span>
+                            <input type="checkbox" id="show-district" checked class="toggle toggle-blue">
+                        </label>
+                        <label class="flex items-center justify-between chart-item">
+                            <span><?= lang('Dashboard.investment_by_location') ?></span>
+                            <input type="checkbox" id="show-investment" checked class="toggle toggle-yellow">
+                        </label>
+                        <label class="flex items-center justify-between chart-item">
+                            <span><?= lang('Dashboard.projects_by_sector') ?></span>
+                            <input type="checkbox" id="show-sector" checked class="toggle toggle-green">
+                        </label>
+                        <label class="flex items-center justify-between chart-item">
+                            <span><?= lang('Dashboard.workforce_pma') ?></span>
+                            <input type="checkbox" id="show-workforce-pma" checked class="toggle toggle-green">
+                        </label>
+                        <label class="flex items-center justify-between chart-item">
+                            <span><?= lang('Dashboard.workforce_pmdn') ?></span>
+                            <input type="checkbox" id="show-workforce-pmdn" checked class="toggle toggle-green">
+                        </label>
+                        <label class="flex items-center justify-between chart-item">
+                            <span><?= lang('Dashboard.ranking_projects_district') ?></span>
+                            <input type="checkbox" id="show-ranking-district" checked class="toggle toggle-blue">
+                        </label>
+                        <label class="flex items-center justify-between chart-item">
+                            <span><?= lang('Dashboard.projects_pma_district') ?></span>
+                            <input type="checkbox" id="show-projects-pma" checked class="toggle toggle-blue">
+                        </label>
+                        <label class="flex items-center justify-between chart-item">
+                            <span><?= lang('Dashboard.projects_pmdn_district') ?></span>
+                            <input type="checkbox" id="show-projects-pmdn" checked class="toggle toggle-blue">
+                        </label>
+                        <label class="flex items-center justify-between chart-item">
+                            <span><?= lang('Dashboard.projects_by_country') ?></span>
+                            <input type="checkbox" id="show-country" checked class="toggle toggle-blue">
+                        </label>
+                        <label class="flex items-center justify-between chart-item">
+                            <span>Quarterly Additional Investment</span>
+                            <input type="checkbox" id="show-quarterly-additional-investment" checked class="toggle toggle-yellow">
+                        </label>
                     </div>
                 </div>
 
@@ -449,7 +452,7 @@
                             <canvas id="projects-pmdn-chart" height="300"></canvas>
                         </div>
                     </div>
-                    <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-4" id="chart-row-5">
+                    <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-2" id="chart-row-5">
                         <div class="grid grid-cols-1 gap-4 mb-4" id="chart-row-6">
                             <div class="glass-card shadow-xl rounded-xl p-4 chart-container" id="country-container">
                                 <div class="flex items-center justify-between mb-4">
@@ -476,9 +479,9 @@
                                     <div class="flex items-center space-x-4">
                                         <?php if (session()->get('role') === 'superadmin'): ?>
                                             <div class="flex items-center space-x-2">
-                                                <label class="text-sm font-medium text-gray-700">Tahun:<?= lang('') ?></label>
+                                                <label class="text-sm font-medium text-gray-700"><?= lang('Dashboard.year') ?></label>
                                                 <select id="quarterly-additional-investment-year" class="text-sm border rounded px-2 py-1">
-                                                    <option value="all">Semua Tahun</option>
+                                                    <option value="all"><?= lang('Dashboard.all_years') ?></option>
                                                     <?php
                                                     $availableYears = array_keys($data['charts']['quarterly_additional_investment_all_years'] ?? []);
                                                     sort($availableYears);

@@ -5,6 +5,8 @@ return [
     'user_management' => 'Manajemen Pengguna',
     'dashboard_title' => 'Dashboard Statistik PMA dan PMDN',
     'dashboard_subtitle' => 'Sistem Informasi Terpadu untuk Analisis Investasi',
+    'all_years' => 'Semua Tahun',
+    'year' => 'Tahun',
 
     // Upload Section
     'upload_file_excel' => 'Unggah File Excel',
