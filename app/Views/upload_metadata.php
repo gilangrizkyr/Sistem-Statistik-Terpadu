@@ -45,14 +45,14 @@
                         <div class="text-sm text-gray-600 mb-1">Nama File</div>
                         <div class="font-medium text-gray-800"><?php echo htmlspecialchars($upload['original_filename']); ?></div>
                     </div>
-                    <div class="bg-gray-50 rounded-lg p-4">
+                    <!-- <div class="bg-gray-50 rounded-lg p-4">
                         <div class="text-sm text-gray-600 mb-1">Ukuran File</div>
                         <div class="font-medium text-gray-800"><?php echo number_format($upload['file_size'] / 1024, 1); ?> KB</div>
-                    </div>
-                    <div class="bg-gray-50 rounded-lg p-4">
+                    </div> -->
+                    <!-- <div class="bg-gray-50 rounded-lg p-4">
                         <div class="text-sm text-gray-600 mb-1">Tanggal Upload</div>
                         <div class="font-medium text-gray-800"><?php echo date('d/m/Y H:i', strtotime($upload['upload_date'])); ?></div>
-                    </div>
+                    </div> -->
                     <div class="bg-gray-50 rounded-lg p-4">
                         <div class="text-sm text-gray-600 mb-1">Status</div>
                         <div class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium <?php echo isset($isEdit) && $isEdit ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'; ?>">

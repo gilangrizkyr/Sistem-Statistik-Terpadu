@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Statistik PMA dan PMDN</title>
+    <title>Dashboard Statistik - DPMPTSP Tanah Bumbu</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-pl5ugin-datalabels"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -22,7 +22,7 @@
         <div class="p-4 md:p-6">
             <div class="container mx-auto max-w-7xl">
                 <!-- Navbar -->
-                <nav class="bg-gradient-to-r from-blue-800 to-blue-900 shadow-lg mb-8">
+                <nav class="bg-gradient-to-r from-blue-600 to-blue-700 shadow-lg mb-8  border border-blue-700/40 rounded-xl">
                     <div class="container mx-auto px-6 py-4">
                         <div class="flex justify-between items-center">
                             <!-- Logo & Title Section -->
@@ -160,9 +160,9 @@
                                             <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"><?= lang('Dashboard.quarter') ?></th>
                                             <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"><?= lang('Dashboard.year') ?></th>
                                             <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"><?= lang('Dashboard.status') ?></th>
-                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"><?= lang('Dashboard.total_records') ?></th>
+                                            <!-- <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"><?= lang('Dashboard.total_records') ?></th> -->
                                             <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nilai USD</th>
-                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"><?= lang('Dashboard.upload_date') ?></th>
+                                            <!-- <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"><?= lang('Dashboard.upload_date') ?></th> -->
                                             <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"><?= lang('Dashboard.actions') ?></th>
                                         </tr>
                                     </thead>
@@ -198,15 +198,15 @@
                                                         <?php echo $statusLabels[$status] ?? ucfirst($status); ?>
                                                     </span>
                                                 </td>
-                                                <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                <!-- <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
                                                     <?php echo number_format($upload['total_records'] ?? 0); ?>
-                                                </td>
+                                                </td> -->
                                                 <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
                                                     <?php echo number_format($upload['usd_value'] ?? 0, 2, ',', '.'); ?>
                                                 </td>
-                                                <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                <!-- <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
                                                     <?php echo date('d/m/Y H:i', strtotime($upload['created_at'] ?? 'upload_date')); ?>
-                                                </td>
+                                                </td> -->
                                                 <td class="px-4 py-4 whitespace-nowrap text-sm font-medium">
                                                     <div class="flex space-x-2">
                                                         <a href="/dashboard?upload=<?php echo $upload['id']; ?>"
@@ -488,22 +488,22 @@
                                         <i class="fas fa-calendar-alt mr-3 text-indigo-600"></i><?= lang('Dashboard.quarterly_additional_investment') ?>
                                     </h3>
                                     <div class="flex items-center space-x-4">
-                                       
-                                            <div class="flex items-center space-x-2">
-                                                <label class="text-sm font-medium text-gray-700"><?= lang('Dashboard.year') ?></label>
-                                                <select id="quarterly-additional-investment-year" class="text-sm border rounded px-2 py-1">
-                                                    <option value="all"><?= lang('Dashboard.all_years') ?></option>
-                                                    <?php
-                                                    $availableYears = array_keys($data['charts']['quarterly_additional_investment_all_years'] ?? []);
-                                                    sort($availableYears);
-                                                    foreach ($availableYears as $year) {
-                                                        $selected = (isset($data['filters']['quarterly_year']) && $data['filters']['quarterly_year'] == $year) ? 'selected' : '';
-                                                        echo "<option value=\"$year\" $selected>$year</option>";
-                                                    }
-                                                    ?>
-                                                </select>
-                                            </div>
-                                       
+
+                                        <div class="flex items-center space-x-2">
+                                            <label class="text-sm font-medium text-gray-700"><?= lang('Dashboard.year') ?></label>
+                                            <select id="quarterly-additional-investment-year" class="text-sm border rounded px-2 py-1">
+                                                <option value="all"><?= lang('Dashboard.all_years') ?></option>
+                                                <?php
+                                                $availableYears = array_keys($data['charts']['quarterly_additional_investment_all_years'] ?? []);
+                                                sort($availableYears);
+                                                foreach ($availableYears as $year) {
+                                                    $selected = (isset($data['filters']['quarterly_year']) && $data['filters']['quarterly_year'] == $year) ? 'selected' : '';
+                                                    echo "<option value=\"$year\" $selected>$year</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+
                                         <select id="quarterly-additional-investment-type" class="text-sm border rounded px-2 py-1">
                                             <option value="bar">Bar</option>
                                             <option value="line">Line</option>
