@@ -611,7 +611,7 @@
                     </div>
                 </div>
 
-                <!-- DOWNLOAD -->
+                <!-- DOWNLOAD DATA -->
                 <!-- <div class="glass-card shadow-xl rounded-xl p-6 chart-container">
                     <div class="flex items-center mb-4">
                         <i class="fas fa-download text-green-600 mr-3 text-xl"></i>
@@ -622,9 +622,6 @@
                         <i class="fas fa-file-excel mr-2"></i><?= lang('Dashboard.download_excel') ?>
                     </a>
                 </div> -->
-
-
-
             </div>
         </div>
     </div>
